@@ -1,12 +1,31 @@
+using Domain.Interfaces.IDBPROXIES;
 using Domain.Interfaces.IServices;
 using Entities.Templates;
+using Serilog;
 
 namespace Infrastrucutre.Buisnes.Services;
 
 public class RegistrService:IRegistrService
 {
-    public Task<bool> RegistrUserToApp(RegisterDto registerDto)
+    private readonly ILogger _logger;
+    private readonly ICheckExistProxy _checkExistProxy;
+    private readonly IRegistrProxy _registrProxy;
+
+    public RegistrService(ILogger logger, ICheckExistProxy checkExistProxy, IRegistrProxy registrProxy)
     {
-        throw new NotImplementedException();
+        _logger = logger;
+        _checkExistProxy = checkExistProxy;
+        _registrProxy = registrProxy;
+    }
+    public async Task<bool> RegistrUserToApp(RegisterDto registerDto)
+    {
+        if (await _checkExistProxy.CheckExist(new CheckExistDto { Email = registerDto.Email }))
+        {
+            if (await _registrProxy.Registr(registerDto))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }
