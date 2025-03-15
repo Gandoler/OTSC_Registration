@@ -2,7 +2,7 @@ using Entities.Templates;
 
 namespace Domain.Interfaces.IDBPROXIES;
 
-public interface IRegistr
+public interface IRegistrProxy
 {
     Task<bool> Registr(RegisterDto registerDto);
 }
