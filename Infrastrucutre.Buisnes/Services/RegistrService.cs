@@ -1,3 +1,4 @@
+using Domain.Dto.DTO.response;
 using Domain.Interfaces.IDBPROXIES;
 using Domain.Interfaces.IServices;
 using Entities.Templates;
@@ -17,15 +18,16 @@ public class RegistrService:IRegistrService
         _checkExistProxy = checkExistProxy;
         _registrProxy = registrProxy;
     }
-    public async Task<bool> RegistrUserToApp(RegisterDto registerDto)
+    public async Task<RegisterAnswers> RegistrUserToApp(RegisterDto registerDto)
     {
         if (await _checkExistProxy.CheckExist(new CheckExistDto { Email = registerDto.Email }))
         {
             if (await _registrProxy.Registr(registerDto))
             {
-                return true;
+                return RegisterAnswers.UserHasBeenRegistered;
             }
+            return RegisterAnswers.UserHasNotBeenRegistered;
         }
-        return false;
+        return RegisterAnswers.UserExist;
     }
 }
