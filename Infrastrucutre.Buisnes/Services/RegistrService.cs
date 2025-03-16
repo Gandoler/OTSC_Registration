@@ -20,7 +20,8 @@ public class RegistrService:IRegistrService
     }
     public async Task<RegisterAnswers> RegistrUserToApp(RegisterDto registerDto)
     {
-        if (await _checkExistProxy.CheckExist(new CheckExistDto { Email = registerDto.Email }))
+        
+        if (await _checkExistProxy.CheckExist(new CheckExistDto { Email = registerDto.Login }))//тут тупейшая ошибка пошедшая с тупым дто
         {
             if (await _registrProxy.Registr(registerDto))
             {

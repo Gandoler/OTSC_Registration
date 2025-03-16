@@ -19,6 +19,7 @@ public class CheckExistProxy: ICheckExistProxy
     
     public async Task<bool> CheckExist(CheckExistDto checkExistDto)
     {
+        
         try
         {
             var response = await _httpClient.PostAsJsonAsync("api/register/exists", checkExistDto);
@@ -29,8 +30,7 @@ public class CheckExistProxy: ICheckExistProxy
                 return false;
             }
 
-            var result = await response.Content.ReadFromJsonAsync<CheckExistResponse>();
-            return result?.Exists ?? false;
+            return true;
         }
         catch (Exception ex)
         {
