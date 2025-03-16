@@ -1,7 +1,10 @@
 using Domain.Interfaces.IDBPROXIES;
 using Domain.Interfaces.IServices;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Infrastructure.Data.DBProxies;
 using Infrastrucutre.Buisnes.Services;
+using RegistrationApi;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -43,18 +46,22 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
 
+builder.Services.AddFluentValidationAutoValidation();
+builder.Services.AddFluentValidationClientsideAdapters();
+builder.Services.AddValidatorsFromAssemblyContaining<DtoValidatorMiddleware>();
 
- 
 
 var app = builder.Build();
 app.UseSwagger();
 app.UseSwaggerUI();
 app.UseSerilogRequestLogging();
+app.MapControllers();
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
-    app.MapControllers();
+   
 }
 
 app.UseHttpsRedirection();

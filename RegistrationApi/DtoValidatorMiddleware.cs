@@ -7,6 +7,8 @@ public class DtoValidatorMiddleware: AbstractValidator<RegisterDto>
 {
     public DtoValidatorMiddleware()
     {
+        Console.WriteLine("Validator initialized!");
+
         RuleFor(x => x.Login)
             .NotEmpty()
             .Matches("^[a-zA-Z0-9_-]{3,32}$")
