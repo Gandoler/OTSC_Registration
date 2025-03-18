@@ -22,7 +22,7 @@ public class CheckExistProxy: ICheckExistProxy
         
         try
         {
-            var response = await _httpClient.PostAsJsonAsync("api/register/exists", checkExistDto);
+            var response = await _httpClient.GetAsync($"api/register/exists/{checkExistDto.Email}");
             
             if (!response.IsSuccessStatusCode)
             {
