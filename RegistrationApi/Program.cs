@@ -5,9 +5,17 @@ using FluentValidation.AspNetCore;
 using Infrastructure.Data.DBProxies;
 using Infrastrucutre.Buisnes.Services;
 using RegistrationApi;
+using RegistrationApi.Examples;
 using Serilog;
+using Swashbuckle.AspNetCore.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddSwaggerGen(c =>
+{
+    c.EnableAnnotations();
+    c.ExampleFilters();
+});
+builder.Services.AddSwaggerExamplesFromAssemblyOf<RegisterInAppExample>();
 
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console() 
@@ -43,7 +51,6 @@ builder.Services.AddScoped<IRegistrService, RegistrService>();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
 
 builder.Services.AddFluentValidationAutoValidation();
