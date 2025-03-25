@@ -9,6 +9,7 @@ using RegistrationApi.Examples;
 using Serilog;
 using Swashbuckle.AspNetCore.Filters;
 
+
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddSwaggerGen(c =>
 {
