@@ -32,7 +32,7 @@ builder.Services.AddSingleton<Serilog.ILogger>(Log.Logger);
 
 
 //докерок
-var dbProxy = Environment.GetEnvironmentVariable("DB_PROXY") ?? "localhost";
+var dbProxy = Environment.GetEnvironmentVariable("DbProxy") ?? "localhost";
 builder.Services.AddHttpClient("ProxyApiClient", client =>
 {
     client.BaseAddress = new Uri(dbProxy);

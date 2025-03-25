@@ -1,15 +1,16 @@
 ﻿FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS base
 USER $APP_UID
 WORKDIR /app
-EXPOSE 8082
+EXPOSE 8080
+EXPOSE 8081
 
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["AplicationLevel/RegistrationApi/RegistrationApi.csproj", "RegistrationApi/"]
+COPY ["RegistrationApi/RegistrationApi.csproj", "RegistrationApi/"]
 COPY ["Infrastrucutre.Buisnes/Infrastrucutre.Buisnes.csproj", "Infrastrucutre.Buisnes/"]
-COPY ["Domain/Domain.Interfaces/Domain.Interfaces.csproj", "Domain.Interfaces/"]
-COPY ["Domain/Domain.Dto/Domain.Dto.csproj", "Domain.Dto/"]
+COPY ["Domain.Interfaces/Domain.Interfaces.csproj", "Domain.Interfaces/"]
+COPY ["Domain.Dto/Domain.Dto.csproj", "Domain.Dto/"]
 COPY ["Infrastructure.Data/Infrastructure.Data.csproj", "Infrastructure.Data/"]
 RUN dotnet restore "RegistrationApi/RegistrationApi.csproj"
 COPY . .
