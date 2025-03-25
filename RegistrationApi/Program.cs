@@ -32,12 +32,18 @@ builder.Services.AddSingleton<Serilog.ILogger>(Log.Logger);
 
 
 //докерок
-var dbProxy = Environment.GetEnvironmentVariable("DbProxy") ?? "localhost";
+
+var dbProxy = Environment.GetEnvironmentVariable("DbProxy") ?? "http://localhost:8081"; 
+if (!Uri.IsWellFormedUriString(dbProxy, UriKind.Absolute))
+{
+
+    dbProxy = "http://localhost:8081";
+}
+
 builder.Services.AddHttpClient("ProxyApiClient", client =>
 {
     client.BaseAddress = new Uri(dbProxy);
 });
-
 
 builder.Services.AddScoped<IRegistrProxy>(provider =>
 {
