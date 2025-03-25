@@ -6,10 +6,10 @@ EXPOSE 8082
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["RegistrationApi/RegistrationApi.csproj", "RegistrationApi/"]
+COPY ["AplicationLevel/RegistrationApi/RegistrationApi.csproj", "RegistrationApi/"]
 COPY ["Infrastrucutre.Buisnes/Infrastrucutre.Buisnes.csproj", "Infrastrucutre.Buisnes/"]
-COPY ["Domain.Interfaces/Domain.Interfaces.csproj", "Domain.Interfaces/"]
-COPY ["Domain.Dto/Domain.Dto.csproj", "Domain.Dto/"]
+COPY ["Domain/Domain.Interfaces/Domain.Interfaces.csproj", "Domain.Interfaces/"]
+COPY ["Domain/Domain.Dto/Domain.Dto.csproj", "Domain.Dto/"]
 COPY ["Infrastructure.Data/Infrastructure.Data.csproj", "Infrastructure.Data/"]
 RUN dotnet restore "RegistrationApi/RegistrationApi.csproj"
 COPY . .

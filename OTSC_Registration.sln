@@ -6,7 +6,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{3BC4A2
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastracture", "Infrastracture", "{62E8C7EB-290E-49DE-ADBD-50003C88F6E9}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AplictionLevel", "AplictionLevel", "{EE5803CE-97C0-46F4-8565-678AF5D460EC}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AplicationLevel", "AplicationLevel", "{EE5803CE-97C0-46F4-8565-678AF5D460EC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain.Dto", "Domain.Dto\Domain.Dto.csproj", "{D95C185B-0452-46A5-8C60-39133198956F}"
 EndProject
