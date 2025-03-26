@@ -26,19 +26,26 @@ builder.Host.UseSerilog();
 builder.Services.AddSingleton<Serilog.ILogger>(Log.Logger);
 
 
-// для обычного запуска
-// var configuration = builder.Configuration;
-// var dbProxy = configuration["ApiSettings:DbProxy"] ?? throw new Exception("DbProxy is missing");
-
-
-//докерок
-
-var dbProxy = Environment.GetEnvironmentVariable("DbProxy") ?? "http://localhost"; 
-if (!Uri.IsWellFormedUriString(dbProxy, UriKind.Absolute))
+string dbProxy = String.Empty;
+if (builder.Environment.IsDevelopment())
 {
-
-    dbProxy = "http://localhost";
+    // для обычного запуска
+    var configuration = builder.Configuration;
+    dbProxy = configuration["ApiSettings:DbProxy"] ?? throw new Exception("DbProxy is missing");
 }
+else
+{
+    //докерок
+    dbProxy = Environment.GetEnvironmentVariable("DbProxy") ?? "http://localhost"; 
+    if (!Uri.IsWellFormedUriString(dbProxy, UriKind.Absolute))
+    {
+        dbProxy = "http://localhost";
+    }  
+}
+
+
+
+
 
 builder.Services.AddHttpClient("ProxyApiClient", client =>
 {
