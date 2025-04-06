@@ -46,6 +46,7 @@ else
 
 
 
+builder.Services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
 
 builder.Services.AddHttpClient("ProxyApiClient", client =>
 {
