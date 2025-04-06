@@ -9,7 +9,7 @@ using Swashbuckle.AspNetCore.Filters;
 namespace RegistrationApi;
 
 [ApiController]
-[Route("api")]
+[Route("api/Rgister")]
 public class ControllerApi : ControllerBase
 {
     private readonly IRegistrService _registrService;
