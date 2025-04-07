@@ -1,3 +1,4 @@
+using Domain.DTO.DTO.MailComp;
 using Domain.Dto.DTO.response;
 using Domain.Interfaces.IDBPROXIES;
 using Domain.Interfaces.IServices;
@@ -23,8 +24,10 @@ public class RegistrService:IRegistrService
         
         if (! await _checkExistProxy.CheckExist(new CheckExistDto { Email = registerDto.Login }))//тут тупейшая ошибка пошедшая с тупым дто
         {
-            if ( await _registrProxy.Registr(registerDto))
+            Guid? guid = await _registrProxy.Registr(registerDto);
+            if ( guid != null )
             {
+                _registrProxy.Addmail(new ADDMailDto() { Email = registerDto.Email, Appid = guid.Value });
                 return RegisterAnswers.UserHasBeenRegistered;
             }
             return RegisterAnswers.UserHasNotBeenRegistered;

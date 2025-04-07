@@ -1,4 +1,5 @@
 using System.Net.Http.Json;
+using Domain.DTO.DTO.MailComp;
 using Domain.Dto.DTO.response;
 using Domain.Interfaces.IDBPROXIES;
 using Entities.Templates;
@@ -17,7 +18,7 @@ public class RegistrProxy: IRegistrProxy
         _logger = logger;
     }
     
-    public async Task<bool> Registr(RegisterDto registerDto)
+    public async Task<Guid?> Registr(RegisterDto registerDto)
     {
         try
         {
@@ -26,15 +27,36 @@ public class RegistrProxy: IRegistrProxy
             if (!response.IsSuccessStatusCode)
             {
                 _logger.Warning("RegisterUser request failed with status code {StatusCode}", response.StatusCode);
-                return false;
+                return null;
             }
 
-            var result = await response.Content.ReadFromJsonAsync<RegisterResponse>();
-            return result?.Message == "User registered successfully";
+            Guid? result = await response.Content.ReadFromJsonAsync<Guid>();
+            return result;
         }
         catch (Exception ex)
         {
             _logger.Error(ex, "Exception in RegisterUser");
+            return null;
+        }
+    }
+    public async Task<bool> Addmail(ADDMailDto mailDto)
+    {
+        try
+        {
+            var response = await _httpClient.PutAsJsonAsync("api/register/Mail", mailDto);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                _logger.Warning("Mail regist failed with {StatusCode}", response.StatusCode);
+                return false;
+            }
+
+            var result = await response.Content.ReadFromJsonAsync<RegisterResponse>();
+            return result?.Message == "Mail regist successfully";
+        }
+        catch (Exception ex)
+        {
+            _logger.Error(ex, "Exception in Mail regist");
             return false;
         }
     }

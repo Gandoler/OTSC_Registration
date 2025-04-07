@@ -1,8 +1,10 @@
+using Domain.DTO.DTO.MailComp;
 using Entities.Templates;
 
 namespace Domain.Interfaces.IDBPROXIES;
 
 public interface IRegistrProxy
 {
-    Task<bool> Registr(RegisterDto registerDto);
+    Task<Guid?> Registr(RegisterDto registerDto);
+    Task<bool> Addmail(ADDMailDto registerDto);
 }
